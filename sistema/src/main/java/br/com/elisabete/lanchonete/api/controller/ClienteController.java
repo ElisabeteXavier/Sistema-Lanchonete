@@ -1,7 +1,7 @@
 package br.com.elisabete.lanchonete.api.controller;
 
-import br.com.elisabete.lanchonete.Cliente;
-import br.com.elisabete.lanchonete.ClienteRepository;
+import br.com.elisabete.lanchonete.modelos.Cliente;
+import br.com.elisabete.lanchonete.repositorios.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

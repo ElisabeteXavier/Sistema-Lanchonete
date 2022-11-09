@@ -7,9 +7,9 @@ import java.util.List;
 
 public interface ProdutoRepository {
 
-    List<Produto> listar();
-    Produto buscar(Long id);
-    Produto salvar(Produto produto);
-    void remover(Cliente cliente);
+    List<Produto> findAll();
+    Produto findById(Long id);
+    Produto save(Produto produto);
+    void deleteById(Produto produto);
 
 }

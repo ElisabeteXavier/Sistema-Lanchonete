@@ -1,6 +1,5 @@
 package br.com.elisabete.lanchonete.modelos;
 
-
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,13 +8,17 @@ import javax.persistence.*;
 @Data
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Entity
-public class Produto {
+public class Cidade {
+
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long id;
+
+    @Column(nullable = false)
     private String nome;
-    private int qtdEstoque;
-    private double valorUnitario;
-    private Boolean ativo;
+
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private Estado estado;
 }

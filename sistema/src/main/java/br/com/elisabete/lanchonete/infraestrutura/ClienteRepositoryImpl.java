@@ -1,4 +1,4 @@
-package br.com.elisabete.lanchonete.repositorios;
+package br.com.elisabete.lanchonete.infraestrutura;
 
 import br.com.elisabete.lanchonete.modelos.Cliente;
 import br.com.elisabete.lanchonete.repositorios.ClienteRepository;
@@ -14,25 +14,28 @@ public class ClienteRepositoryImpl implements ClienteRepository {
         @PersistenceContext
         private EntityManager manager;
         @Override
-        public List<Cliente> listar() {
+        public List<Cliente> findAll() {
             return manager.createQuery("from Cliente",Cliente.class).getResultList();
         }
         @Override
-        public Cliente buscar(Long id) {
+        public Cliente findById(Long id) {
             return manager.find(Cliente.class, id);
         }
 
         @Override
         @Transactional
-        public Cliente salvar(Cliente cliente) {
+        public Cliente save(Cliente cliente) {
             System.out.println("cliente: "+cliente.getId());
             return manager.merge(cliente);
         }
         @Override
         @Transactional
-        public void remover(Cliente cliente) {
-            System.out.println("cliente: "+cliente.getId());
-            cliente = buscar(cliente.getId());
-            manager.remove(cliente);
+        public void deleteById(Long clienteId) {
+//            System.out.println("cliente: "+cliente.getId());
+
+           Cliente cliente = findById(clienteId);
+           if(cliente != null) {
+               manager.remove(cliente);
+           }
         }
 }

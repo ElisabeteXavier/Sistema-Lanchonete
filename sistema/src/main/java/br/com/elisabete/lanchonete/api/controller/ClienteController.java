@@ -42,16 +42,7 @@ public class ClienteController {
         clienteService.remover(clienteId);
     }
 
-    @PutMapping("/{clienteId}")
-    public ResponseEntity<Cliente> atualizar(@PathVariable Long clienteId,@RequestBody Cliente cliente) {
-        Cliente clienteAtual = clienteRepository.findById(clienteId);
-        if (clienteAtual != null) {
-            BeanUtils.copyProperties(cliente, clienteAtual, "id");
-            Cliente clienteSalva= clienteService.salvar(clienteAtual);
-            return ResponseEntity.ok(clienteSalva);
-        }
-        return ResponseEntity.notFound().build();
-    }
+
 }
 
 

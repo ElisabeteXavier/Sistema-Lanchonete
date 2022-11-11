@@ -5,7 +5,9 @@ import br.com.elisabete.lanchonete.modelos.Produto;
 import br.com.elisabete.lanchonete.repositorios.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ProdutoService {
 
     @Autowired
@@ -13,13 +15,13 @@ public class ProdutoService {
     public Produto salvar(Produto produto) {
         return produtoRepository.save(produto);
     }
-    public void remover(Produto produto) {
+    public void remover(Long produtoId) {
         try {
-            produtoRepository.deleteById(produto);
+            produtoRepository.deleteById(produtoId);
         } catch (InvalidDataAccessApiUsageException e) {
             throw new EntidadeNaoEncontradaException(
                     String.format("Não existe um cadastro" +
-                            "de produto com código %d", produto.getId()));
+                            "de produto com código %d", produtoId));
         }
 
     }

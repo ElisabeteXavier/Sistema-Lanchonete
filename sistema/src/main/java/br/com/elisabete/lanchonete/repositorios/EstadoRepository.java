@@ -1,12 +1,11 @@
 package br.com.elisabete.lanchonete.repositorios;
 
 import br.com.elisabete.lanchonete.modelos.Estado;
+import org.springframework.data.jpa.repository.JpaRepository;
+
 import java.util.List;
 
-public interface EstadoRepository {
+public interface EstadoRepository extends JpaRepository< Estado, Long> {
 
-    List<Estado> findAll();
-    Estado findById(Long id);
-    Estado save(Estado estado);
-    void deleteById(Estado estado);
+
 }

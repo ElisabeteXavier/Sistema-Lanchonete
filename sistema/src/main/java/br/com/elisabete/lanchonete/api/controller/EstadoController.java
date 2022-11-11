@@ -1,4 +1,5 @@
 package br.com.elisabete.lanchonete.api.controller;
+import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
 import br.com.elisabete.lanchonete.modelos.Estado;
 import br.com.elisabete.lanchonete.repositorios.EstadoRepository;
 import br.com.elisabete.lanchonete.service.EstadoService;
@@ -24,7 +25,7 @@ public class EstadoController {
 
     @GetMapping("/{estadoId}")
     public Estado findById(@PathVariable Long estadoId){
-        return estadoRepository.findById(estadoId);
+        return estadoRepository.findById(estadoId).orElseThrow(()-> new EntidadeNaoEncontradaException("Estado não encontrado na busca po id"));
     }
 
     @PostMapping
@@ -34,8 +35,8 @@ public class EstadoController {
     }
     @DeleteMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById (@RequestBody Estado estado){
-        estadoService.remover(estado);
+    public void deleteById (@PathVariable Long estadoId){
+        estadoService.remover(estadoId);
     }
 
 

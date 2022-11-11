@@ -15,13 +15,13 @@ public class EstadoService {
     public Estado salvar(Estado estado) {
         return estadoRepository.save(estado);
     }
-    public void remover(Estado estado) {
+    public void remover(Long estadoId) {
         try {
-            estadoRepository.deleteById(estado);
+            estadoRepository.deleteById(estadoId);
         } catch (InvalidDataAccessApiUsageException e) {
             throw new EntidadeNaoEncontradaException(
                     String.format("Não existe um cadastro" +
-                            "de estado com código %d", estado.getId()));
+                            "de estado com código %d", estadoId));
         }
 
     }

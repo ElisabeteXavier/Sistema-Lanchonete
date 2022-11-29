@@ -1,9 +1,12 @@
 package br.com.elisabete.lanchonete.service;
 
 import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
+import br.com.elisabete.lanchonete.exception.EntidadeVinculadaExcepition;
 import br.com.elisabete.lanchonete.modelos.Estado;
 import br.com.elisabete.lanchonete.repositorios.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +21,13 @@ public class EstadoService {
     public void remover(Long estadoId) {
         try {
             estadoRepository.deleteById(estadoId);
-        } catch (InvalidDataAccessApiUsageException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
                     String.format("Não existe um cadastro" +
                             "de estado com código %d", estadoId));
+        }
+        catch (DataIntegrityViolationException e){
+            throw new EntidadeVinculadaExcepition("A cidade está vinculada a um estado");
         }
 
     }

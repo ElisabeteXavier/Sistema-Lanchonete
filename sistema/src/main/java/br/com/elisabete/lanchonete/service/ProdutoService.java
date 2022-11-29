@@ -4,6 +4,7 @@ import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
 import br.com.elisabete.lanchonete.modelos.Produto;
 import br.com.elisabete.lanchonete.repositorios.ProdutoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 
@@ -18,7 +19,7 @@ public class ProdutoService {
     public void remover(Long produtoId) {
         try {
             produtoRepository.deleteById(produtoId);
-        } catch (InvalidDataAccessApiUsageException e) {
+        } catch (EmptyResultDataAccessException e) {
             throw new EntidadeNaoEncontradaException(
                     String.format("Não existe um cadastro" +
                             "de produto com código %d", produtoId));

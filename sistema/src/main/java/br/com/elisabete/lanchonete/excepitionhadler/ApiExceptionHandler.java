@@ -1,6 +1,8 @@
 package br.com.elisabete.lanchonete.excepitionhadler;
 
+import br.com.elisabete.lanchonete.exception.EntidadeDuplicadaExcepition;
 import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
+import br.com.elisabete.lanchonete.exception.EntidadeVinculadaExcepition;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +19,16 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(EntidadeNaoEncontradaException.class)
     public ResponseEntity<?> tratarEntidadeNaoEncontradaException(EntidadeNaoEncontradaException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
+    }
 
+    @ExceptionHandler(EntidadeDuplicadaExcepition.class)
+    public ResponseEntity<?> tratarEntidadeDuplicadaException(EntidadeDuplicadaExcepition ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
+    }
+
+    @ExceptionHandler(EntidadeVinculadaExcepition.class)
+    public ResponseEntity<?> tratarEntidadeVinculadaException(EntidadeVinculadaExcepition ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
     @Override

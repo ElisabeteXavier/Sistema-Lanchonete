@@ -1,6 +1,7 @@
 package br.com.elisabete.lanchonete.api.controller;
 
 
+import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
 import br.com.elisabete.lanchonete.modelos.Cidade;
 import br.com.elisabete.lanchonete.repositorios.CidadeRepository;
 import br.com.elisabete.lanchonete.service.CidadeService;
@@ -26,7 +27,7 @@ public class CidadeController {
 
     @GetMapping("/{cidadeId}")
     public Cidade findById(@PathVariable Long cidadeId){
-        return cidadeRepository.findById(cidadeId);
+        return cidadeRepository.findById(cidadeId).orElseThrow(()-> new EntidadeNaoEncontradaException("Cliente não encontrado na busca po id"));
     }
 
     @PostMapping
@@ -34,10 +35,10 @@ public class CidadeController {
     public Cidade save (@RequestBody Cidade cidade) {
         return cidadeService.salvar(cidade);
     }
-    @DeleteMapping
+    @DeleteMapping("/{cidadeId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById (@RequestBody Cidade cidade){
-        cidadeService.remover(cidade);
+    public void deleteById (@PathVariable Long cidadeId){
+        cidadeService.remover(cidadeId);
     }
 
 

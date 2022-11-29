@@ -33,7 +33,7 @@ public class EstadoController {
     public Estado save (@RequestBody Estado estado) {
         return estadoService.salvar(estado);
     }
-    @DeleteMapping
+    @DeleteMapping("/{estadoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById (@PathVariable Long estadoId){
         estadoService.remover(estadoId);

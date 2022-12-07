@@ -6,7 +6,6 @@ import br.com.elisabete.lanchonete.modelos.Produto;
 import br.com.elisabete.lanchonete.repositorios.ProdutoRepository;
 import br.com.elisabete.lanchonete.service.ProdutoService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import lombok.val;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -33,6 +31,7 @@ public class ProdutoController {
 
     @GetMapping
     public List<Produto> findAll() {
+
         return produtoRepository.findAll();
     }
 

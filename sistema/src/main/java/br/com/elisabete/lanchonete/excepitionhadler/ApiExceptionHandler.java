@@ -1,5 +1,6 @@
 package br.com.elisabete.lanchonete.excepitionhadler;
 
+import br.com.elisabete.lanchonete.exception.EmailEmUsoException;
 import br.com.elisabete.lanchonete.exception.EntidadeDuplicadaExcepition;
 import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
 import br.com.elisabete.lanchonete.exception.EntidadeVinculadaExcepition;
@@ -30,6 +31,12 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> tratarEntidadeVinculadaException(EntidadeVinculadaExcepition ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
+
+    @ExceptionHandler(EmailEmUsoException.class)
+    public ResponseEntity<?> tratarEmailEmUsoException(EmailEmUsoException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
+    }
+
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {

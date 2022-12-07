@@ -2,17 +2,14 @@ package br.com.elisabete.lanchonete.api.controller;
 
 import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
 import br.com.elisabete.lanchonete.modelos.Cliente;
-import br.com.elisabete.lanchonete.modelos.Produto;
 import br.com.elisabete.lanchonete.repositorios.ClienteRepository;
 import br.com.elisabete.lanchonete.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
-
 
 import javax.validation.Valid;
 import java.lang.reflect.Field;
@@ -84,6 +81,13 @@ public class ClienteController {
             Object novoValor = ReflectionUtils.getField(field, clienteOrigem);
             ReflectionUtils.setField(field, clienteDestino, novoValor);
         });
+    }
+
+    @GetMapping("/email")
+    private Cliente buscaEmail(String email){
+
+      return  clienteRepository.findByEmail(email);
+
     }
 }
 

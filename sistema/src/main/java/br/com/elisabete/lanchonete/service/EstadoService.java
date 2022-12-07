@@ -1,5 +1,6 @@
 package br.com.elisabete.lanchonete.service;
 
+import br.com.elisabete.lanchonete.exception.EntidadeDuplicadaExcepition;
 import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
 import br.com.elisabete.lanchonete.exception.EntidadeVinculadaExcepition;
 import br.com.elisabete.lanchonete.modelos.Estado;
@@ -7,7 +8,6 @@ import br.com.elisabete.lanchonete.repositorios.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,6 +16,10 @@ public class EstadoService {
     @Autowired
     private EstadoRepository estadoRepository;
     public Estado salvar(Estado estado) {
+
+       if( estadoRepository.findAll().contains(estado)){
+           throw  new EntidadeDuplicadaExcepition("Estado ja cadastrado!");
+       }else
         return estadoRepository.save(estado);
     }
     public void remover(Long estadoId) {

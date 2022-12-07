@@ -19,13 +19,14 @@ public abstract class Pessoa {
     protected String nome;
     @EqualsAndHashCode.Include
     @Id
-    @Column(length = 11)
+    @Column(nullable = false, length = 11)
     protected String cpf;
     @Column(length = 13)
     protected String telefone;
+    @EqualsAndHashCode.Include
     @NotNull
     @Email
-    @Column(length = 40)
+    @Column( nullable = false, length = 40)
     protected String email;
     protected LocalDate dataNascimento;
 }

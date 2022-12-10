@@ -20,7 +20,6 @@ public class CidadeService {
         if(cidadeRepository.findAll().contains(cidade)){
             throw  new EntidadeDuplicadaExcepition("Cidade ja cadastrada!");
         }else if(!estadoRepository.existsById(cidade.getEstado().getId())){
-
             throw new EntidadeNaoEncontradaException("Estado não encontrado!");
         }else
             return cidadeRepository.save(cidade);

@@ -1,6 +1,7 @@
 package br.com.elisabete.lanchonete.api.controller;
 
 import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
+import br.com.elisabete.lanchonete.modelos.Cidade;
 import br.com.elisabete.lanchonete.modelos.Cliente;
 import br.com.elisabete.lanchonete.repositorios.ClienteRepository;
 import br.com.elisabete.lanchonete.service.ClienteService;
@@ -87,6 +88,13 @@ public class ClienteController {
     private Cliente buscaEmail(String email){
 
       return  clienteRepository.findByEmail(email);
+
+    }
+
+    @GetMapping("/cidade")
+    private Cliente buscaCidade(Cidade cidade){
+
+        return  clienteRepository.findByCidade(cidade);
 
     }
 }

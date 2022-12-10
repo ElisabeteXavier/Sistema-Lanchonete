@@ -23,7 +23,7 @@ public abstract class Pessoa {
     protected String cpf;
     @Column(length = 13)
     protected String telefone;
-    @EqualsAndHashCode.Include
+
     @NotNull
     @Email
     @Column( nullable = false, length = 40)

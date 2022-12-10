@@ -12,8 +12,8 @@ public class Pedido {
     @EqualsAndHashCode.Include
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Long id;
+    private Long id;
 //    List<Item> itens;
     @Column( nullable = true,length = 80)
-    String observacao;
+   private String observacao;
 }

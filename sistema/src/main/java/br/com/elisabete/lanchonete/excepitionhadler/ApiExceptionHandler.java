@@ -1,9 +1,6 @@
 package br.com.elisabete.lanchonete.excepitionhadler;
 
-import br.com.elisabete.lanchonete.exception.EmailEmUsoException;
-import br.com.elisabete.lanchonete.exception.EntidadeDuplicadaExcepition;
-import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
-import br.com.elisabete.lanchonete.exception.EntidadeVinculadaExcepition;
+import br.com.elisabete.lanchonete.exception.*;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,8 +24,8 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.UNAUTHORIZED, request);
     }
 
-    @ExceptionHandler(EntidadeVinculadaExcepition.class)
-    public ResponseEntity<?> tratarEntidadeVinculadaException(EntidadeVinculadaExcepition ex, WebRequest request) {
+    @ExceptionHandler(EntidadeEmUsoExcepition.class)
+    public ResponseEntity<?> tratarEntidadeVinculadaException(EntidadeEmUsoExcepition ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.NOT_FOUND, request);
     }
 
@@ -36,7 +33,10 @@ public class ApiExceptionHandler extends ResponseEntityExceptionHandler {
     public ResponseEntity<?> tratarEmailEmUsoException(EmailEmUsoException ex, WebRequest request) {
         return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.CONFLICT, request);
     }
-
+    @ExceptionHandler(CpfInvalidoException.class)
+    public ResponseEntity<?> tratarCpfInvalidoException(CpfInvalidoException ex, WebRequest request) {
+        return handleExceptionInternal(ex, ex.getMessage(), new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
+    }
 
     @Override
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {

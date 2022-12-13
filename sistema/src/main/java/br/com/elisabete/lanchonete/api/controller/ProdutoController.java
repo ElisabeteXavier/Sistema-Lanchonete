@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/produtos")
 public class ProdutoController {
@@ -49,7 +50,7 @@ public class ProdutoController {
 
     @DeleteMapping("/{produtoId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteById(@RequestBody Long produtoId) {
+    public void deleteById(@PathVariable Long produtoId) {
         produtoService.remover(produtoId);
     }
 
@@ -58,7 +59,7 @@ public class ProdutoController {
         Optional<Produto> produtoAtual = produtoRepository.findById(produtoId);
         if (produtoAtual.isPresent()) {
             BeanUtils.copyProperties(produto, produtoAtual.get(), "id");
-            Produto produtoSalvo = produtoService.salvar(produtoAtual.get());
+            Produto produtoSalvo = produtoRepository.save(produtoAtual.get());
             return ResponseEntity.ok(produtoSalvo);
         }
         return ResponseEntity.notFound().build();

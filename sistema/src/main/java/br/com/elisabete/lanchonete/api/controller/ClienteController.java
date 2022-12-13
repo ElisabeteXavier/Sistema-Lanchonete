@@ -8,6 +8,7 @@ import br.com.elisabete.lanchonete.service.ClienteService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/clientes")
@@ -37,12 +39,14 @@ public class ClienteController {
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Cliente save(@RequestBody @Valid Cliente cliente) {
 
         return clienteService.salvar(cliente);
     }
 
     @DeleteMapping("/{clienteId}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteById(@PathVariable String clienteId) {
         clienteService.remover(clienteId);
     }
@@ -53,7 +57,7 @@ public class ClienteController {
         Optional<Cliente> clienteAtual = clienteRepository.findById(clienteId);
         if (clienteAtual.isPresent()) {
             BeanUtils.copyProperties(cliente, clienteAtual.get(), "cpf");
-            Cliente clienteSalvo = clienteService.salvar(clienteAtual.get());
+            Cliente clienteSalvo = clienteRepository.save(clienteAtual.get());
             return ResponseEntity.ok(clienteSalvo);
         }
         return ResponseEntity.notFound().build();

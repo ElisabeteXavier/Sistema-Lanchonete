@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Data
@@ -15,10 +16,12 @@ public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long Id;
+    @NotBlank
     @EqualsAndHashCode.Include
     @NotNull
     @Column(length = 50, nullable = false)
     private String nome;
+
     @NotNull
     @Column(length = 50, nullable = false)
     private int qtdEstoque;
@@ -27,6 +30,5 @@ public class Produto {
     @Column(length = 50, nullable = false)
     private double valorUnitario;
 
-    @NotNull
-    private Boolean ativo;
+
 }

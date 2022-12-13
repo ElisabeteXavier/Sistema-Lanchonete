@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -14,6 +15,7 @@ import java.time.LocalDate;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @MappedSuperclass
 public abstract class Pessoa {
+    @NotBlank
     @NotNull
     @Column(length = 50, nullable = false)
     protected String nome;
@@ -21,8 +23,10 @@ public abstract class Pessoa {
     @Id
     @Column(nullable = false, length = 11)
     protected String cpf;
+    @NotBlank
     @Column(length = 13)
     protected String telefone;
+
 
     @NotNull
     @Email

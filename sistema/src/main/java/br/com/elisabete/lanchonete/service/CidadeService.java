@@ -1,11 +1,13 @@
 package br.com.elisabete.lanchonete.service;
 
 import br.com.elisabete.lanchonete.exception.EntidadeDuplicadaExcepition;
+import br.com.elisabete.lanchonete.exception.EntidadeEmUsoExcepition;
 import br.com.elisabete.lanchonete.exception.EntidadeNaoEncontradaException;
 import br.com.elisabete.lanchonete.modelos.Cidade;
 import br.com.elisabete.lanchonete.repositorios.CidadeRepository;
 import br.com.elisabete.lanchonete.repositorios.EstadoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,8 @@ public class CidadeService {
             return cidadeRepository.save(cidade);
     }
     public void remover(Long cidadeId) {
+
+
         try {
 
             cidadeRepository.deleteById(cidadeId);
@@ -34,7 +38,10 @@ public class CidadeService {
                     String.format("Não existe um cadastro" +
                             "de cidade com código %d", cidadeId));
         }
-
+        catch (DataIntegrityViolationException e) {
+            throw new EntidadeEmUsoExcepition("a cidade está vinculada a uma Pessoa");
+        }
+//
 
 
     }

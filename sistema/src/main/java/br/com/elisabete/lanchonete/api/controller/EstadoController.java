@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+
 @RestController
 @RequestMapping("/estados")
 
@@ -47,7 +48,7 @@ public class EstadoController {
         Optional<Estado> estadoAtual = estadoRepository.findById(estadoId);
         if (estadoAtual.isPresent()) {
             BeanUtils.copyProperties(estado, estadoAtual.get(), "id");
-            Estado estadoSalvo = estadoService.salvar(estadoAtual.get());
+            Estado estadoSalvo = estadoRepository.save(estadoAtual.get());
             return ResponseEntity.ok(estadoSalvo);
         }
         return ResponseEntity.notFound().build();

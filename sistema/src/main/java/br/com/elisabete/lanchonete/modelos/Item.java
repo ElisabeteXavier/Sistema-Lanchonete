@@ -22,4 +22,6 @@ public class Item {
     @Column(nullable = false)
     int quantidade;
 
+
+
 }

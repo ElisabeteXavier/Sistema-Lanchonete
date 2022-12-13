@@ -51,7 +51,7 @@ public class CidadeController {
         Optional<Cidade> cidadeAtual = cidadeRepository.findById(cidadeId);
         if (cidadeAtual.isPresent()) {
             BeanUtils.copyProperties(cidade, cidadeAtual.get(), "id");
-            Cidade cidadeSalvo = cidadeService.salvar(cidadeAtual.get());
+            Cidade cidadeSalvo = cidadeRepository.save(cidadeAtual.get());
             return ResponseEntity.ok(cidadeSalvo);
         }
         return ResponseEntity.notFound().build();
